@@ -6,6 +6,8 @@ function Header() {
     <>
     <nav className="navbar shadow-md">
         <Link to="/">นิยาม Column</Link>
+        <Link to="/column-visible">Column Visible</Link>
+        <Link to="/row" >Row</Link>
     </nav>
     </>
   )

@@ -7,8 +7,9 @@ import Popper from '@mui/material/Popper';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import { Container } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import SecurityIcon from '@mui/icons-material/FileCopy';
-import FileCopyIcon from '@mui/x-data-grid-generator'
+import SecurityIcon from '@mui/icons-material/Security';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
+import { randomCreatedDate, randomUpdatedDate } from '@mui/x-data-grid-generator';
 // นิยาม Column
 function isOverflown(element) {
   return (
@@ -157,7 +158,141 @@ const rows = [
 ];
 // การเปลี่ยนสถานะ admin
 
-function Column_def() {
+
+
+export default function Column_def() {
+
+  
+ const initialRows = [
+  {
+    id: 1,
+    name: 'Damien',
+    age: 25,
+    dateCreated: randomCreatedDate(),
+    lastLogin: randomUpdatedDate(),
+    isAdmin: true,
+    country: 'Spain',
+    discount: '',
+  },
+  {
+    id: 2,
+    name: 'Nicolas',
+    age: 36,
+    dateCreated: randomCreatedDate(),
+    lastLogin: randomUpdatedDate(),
+    isAdmin: false,
+    country: 'France',
+    discount: '',
+  },
+  {
+    id: 3,
+    name: 'Kate',
+    age: 19,
+    dateCreated: randomCreatedDate(),
+    lastLogin: randomUpdatedDate(),
+    isAdmin: false,
+    country: 'Brazil',
+    discount: 'junior',
+  },
+];
+ const [rows1, setRows1] = React.useState(initialRows);
+  const deleteUser = React.useCallback(
+    (id) => () => {
+      setTimeout(() => {
+        setRows1((prevRows) => prevRows.filter((row) => row.id !== id));
+      });
+    },
+    [],
+  );
+
+  const toggleAdmin = React.useCallback(
+    (id) => () => {
+      setRows1((prevRows) =>
+        prevRows.map((row) =>
+          row.id === id ? { ...row, isAdmin: !row.isAdmin } : row,
+        ),
+      );
+    },
+    [],
+  );
+
+  const duplicateUser = React.useCallback(
+    (id) => () => {
+      setRows1((prevRows) => {
+        const rowToDuplicate = prevRows.find((row) => row.id === id);
+        return [...prevRows, { ...rowToDuplicate, id: Date.now() }];
+      });
+    },
+    [],
+  );
+
+  const columns1 = React.useMemo(
+    () => [
+      { field: 'name', type: 'string' },
+      { field: 'age', type: 'number' },
+      { field: 'dateCreated', type: 'date', width: 130 },
+      { field: 'lastLogin', type: 'dateTime', width: 180 },
+      { field: 'isAdmin', type: 'boolean', width: 120 },
+      {
+        field: 'country',
+        type: 'singleSelect',
+        width: 120,
+        valueOptions: [
+          'Bulgaria',
+          'Netherlands',
+          'France',
+          'United Kingdom',
+          'Spain',
+          'Brazil',
+        ],
+      },
+      {
+        field: 'discount',
+        type: 'singleSelect',
+        width: 120,
+        editable: true,
+        valueOptions: ({ row }) => {
+          if (row === undefined) {
+            return ['EU-resident', 'junior'];
+          }
+          const options = [];
+          if (!['United Kingdom', 'Brazil'].includes(row.country)) {
+            options.push('EU-resident');
+          }
+          if (row.age < 27) {
+            options.push('junior');
+          }
+          return options;
+        },
+      },
+      {
+        field: 'actions',
+        type: 'actions',
+        width: 80,
+        getActions: (params) => [
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            label="Delete"
+            onClick={deleteUser(params.id)}
+          />,
+          <GridActionsCellItem
+            icon={<SecurityIcon />}
+            label="Toggle Admin"
+            onClick={toggleAdmin(params.id)}
+            showInMenu
+          />,
+          <GridActionsCellItem
+            icon={<FileCopyIcon />}
+            label="Duplicate User"
+            onClick={duplicateUser(params.id)}
+            showInMenu
+          />,
+        ],
+      },
+    ],
+    [deleteUser, toggleAdmin, duplicateUser],
+  );
+
   return (
     <>
       <Header/>
@@ -172,8 +307,6 @@ function Column_def() {
         </div>
       </Container>
     </>
-  
   )
 }
 
-export default Column_def
