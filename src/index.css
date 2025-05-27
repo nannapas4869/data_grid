@@ -7,8 +7,9 @@
   display: flex;
   flex-direction: row;
   justify-content: end;
-  font-size: 22px;
+  font-size: 18px;
   padding: 2.3rem;
   font-weight: 800;
   box-shadow: 0,4,4,4 rgba(0,0,0,0.5);
+  gap: 1rem;
 }

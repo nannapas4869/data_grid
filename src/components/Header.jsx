@@ -5,7 +5,7 @@ function Header() {
   return (
     <>
     <nav className="navbar shadow-md">
-        <Link to="/">Column_def</Link>
+        <Link to="/">นิยาม Column</Link>
     </nav>
     </>
   )

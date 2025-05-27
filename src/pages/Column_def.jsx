@@ -1,10 +1,15 @@
 import React from 'react'
 import Header from '../components/Header';
 import Box from '@mui/material/Box';
-import { Typography } from '@mui/material/Typography';
+import  Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
+import { Container } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SecurityIcon from '@mui/icons-material/FileCopy';
+import FileCopyIcon from '@mui/x-data-grid-generator'
+// นิยาม Column
 function isOverflown(element) {
   return (
     element.scrollHeight > element.clientHeight ||
@@ -18,7 +23,7 @@ const GridCellExpand = React.memo(function GridCellExpand(props){
   const cellValue = React.useRef(null);
   const [anchorEl, setAnchorEl] = React.useState(false);
   const [showFullCell, setShowFullCell] = React.useState(false);
-
+  const [showPopper, setShowPopper] = React.useState(false);
   const handleMouseEnter = () => {
     const isCurrentlyOverflown = isOverflown(cellValue.current);
     setShowPopper(isCurrentlyOverflown);
@@ -90,12 +95,13 @@ const GridCellExpand = React.memo(function GridCellExpand(props){
     )}
     </Box>
   );
-  function renderCellExpand(params) {
+ 
+});
+ function renderCellExpand(params) {
     return (
       <GridCellExpand value={params.value || ''} width={params.colDef.computedWidth} />
     );
   }
-});
 const columns = [
   { field: 'col1', headerName: 'Column 1', width: 80, renderCell: renderCellExpand },
   {
@@ -149,13 +155,22 @@ const rows = [
     col3: 'Lorem ipsum may be used as a placeholder before final copy is available.',
   },
 ];
+// การเปลี่ยนสถานะ admin
+
 function Column_def() {
   return (
     <>
       <Header/>
-     <div style={{ height: 300, width: '100%' }}>
-      <DataGrid rows={rows} columns={columns} />
-    </div>
+      <Container>
+        <Typography sx={{fontSize: "20px", fontWeight: 'bold', marginTop: "2rem"}}>นิยาม Column</Typography>
+         <div style={{ height: 300, width: '100%', marginTop: '2rem' }}>
+            <DataGrid rows={rows} columns={columns} />
+        </div>
+        <Typography sx={{fontSize: "20px", fontWeight: 'bold', marginTop: "2rem"}}>การเปลี่ยนสถานะ admin</Typography>
+        <div style={{ height: 300, width: '100%', marginTop: '2rem' }}>
+            <DataGrid rows={rows1} columns={columns1} />
+        </div>
+      </Container>
     </>
   
   )
