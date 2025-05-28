@@ -8,6 +8,7 @@ function Header() {
         <Link to="/">นิยาม Column</Link>
         <Link to="/column-visible">Column Visible</Link>
         <Link to="/row" >Row</Link>
+        <Link to="/Chart">Charts</Link>
     </nav>
     </>
   )

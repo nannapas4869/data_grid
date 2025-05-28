@@ -3,6 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import Column_def from './pages/Column_def';
 import Column_visible from './pages/Column_visible';
 import Row from './pages/Row';
+import Chart from './pages/Chart';
 import './index.css'
 export default function App() {
   return (
@@ -10,6 +11,7 @@ export default function App() {
         <Route path="/" element={<Column_def />} />
         <Route path="/column-visible" element={<Column_visible/>} />
         <Route path="/row" element={<Row />} />
+        <Route path="/chart" element={<Chart />} />
       </Routes>
    
   );

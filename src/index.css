@@ -13,3 +13,8 @@
   box-shadow: 0,4,4,4 rgba(0,0,0,0.5);
   gap: 1rem;
 }
+
+.MuiBarElement-root {
+  background-color: #32abdb !important;
+  background: linear-gradient(90deg, rgba(50, 171, 219, 1) 0%, rgba(135, 237, 234, 1) 50%, rgba(173, 212, 219, 1) 100%) !important;
+}
